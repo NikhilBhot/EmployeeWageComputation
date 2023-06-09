@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
+using System.Net.NetworkInformation;
 using System.Security.Claims;
 
 namespace EmployeeWage
@@ -9,12 +10,9 @@ namespace EmployeeWage
     {
         public const int IS_FULL_TIME = 1;
         public const int IS_PART_TIME = 2;
-        public const int IS_ABSENT = 0;
-        public const int EMP_RATE_PER_HOUR = 20;
-        public const int NoOfWorkingDays = 20;
-        public const int MAX_HRS_IN_MONTH = 100;
+        
         //UC-07-Compute Employee Wage Using Class Methods
-        public static void computeEmpWage()
+        public static int computeEmpWage(string company,int empRatePerHour,int numOfWorkinfDays,int maxHourPerMonth)
         {
             //Start with Displaying Welcome to Employee Wage Computation Program on Master Branch
             Console.WriteLine("Wel-come To Employee Wage Computation Problem");
@@ -33,7 +31,7 @@ namespace EmployeeWage
             int totalWokingsDays = 0;
             Random random = new Random();
             //UC-05-Calculating Wages for a Month
-            while(totalEmpHrs<=MAX_HRS_IN_MONTH && totalWokingsDays < NoOfWorkingDays)
+            while(totalEmpHrs<=maxHourPerMonth && totalWokingsDays < numOfWorkinfDays)
             {
                 totalWokingsDays++;
                 int empCheck = random.Next(0, 3);
@@ -42,11 +40,11 @@ namespace EmployeeWage
                 switch (empCheck)
                 {
                     case IS_FULL_TIME:
-                        Console.WriteLine("Employee Is Full Time");
+                        //Console.WriteLine("Employee Is Full Time");
                         empHrs = 8;
                         break;
                     case IS_PART_TIME:
-                        Console.WriteLine("Employee is Part Time");
+                        //Console.WriteLine("Employee is Part Time");
                         empHrs = 4;
                         break;
                     default:
@@ -61,14 +59,17 @@ namespace EmployeeWage
 
                 
             }
-            int totalEmpWages = totalEmpHrs * EMP_RATE_PER_HOUR;
-            Console.WriteLine("Total Employee Wage="+totalEmpWages);
-            
+            int totalEmpWages = totalEmpHrs *empRatePerHour;
+            Console.WriteLine("Total Employee Wage for comapny:="+ company + "is"+ totalEmpWages);
+            return totalEmpWage;
         }
 
         public static void Main(string[] args)
         {
-            computeEmpWage();
+            //UC-08Compute Employee Wage for Multiple Company in Procedural Way Using Class Methods
+            
+            computeEmpWage("Dmart",20,20,100);
+            computeEmpWage("Reliance", 10, 14, 90);
         }
     }
 }
