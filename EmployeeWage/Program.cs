@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
+using System.Security.Claims;
 
 namespace EmployeeWage
 {
@@ -11,7 +12,9 @@ namespace EmployeeWage
         public const int IS_ABSENT = 0;
         public const int EMP_RATE_PER_HOUR = 20;
         public const int NoOfWorkingDays = 20;
-        static void Main(string[] args)
+        public const int MAX_HRS_IN_MONTH = 100;
+        //UC-07-Compute Employee Wage Using Class Methods
+        public static void computeEmpWage()
         {
             //Start with Displaying Welcome to Employee Wage Computation Program on Master Branch
             Console.WriteLine("Wel-come To Employee Wage Computation Problem");
@@ -24,12 +27,15 @@ namespace EmployeeWage
             
             //variable
             int empHrs = 0;
+            int totalEmpHrs = 0;
             int empWage = 0;
             int totalEmpWage = 0;
+            int totalWokingsDays = 0;
             Random random = new Random();
             //UC-05-Calculating Wages for a Month
-            for (int day=0;day< NoOfWorkingDays; day++)
+            while(totalEmpHrs<=MAX_HRS_IN_MONTH && totalWokingsDays < NoOfWorkingDays)
             {
+                totalWokingsDays++;
                 int empCheck = random.Next(0, 3);
 
                 //UC-04- Calculating Employee Wage Using Switch
@@ -49,12 +55,20 @@ namespace EmployeeWage
                         break;
 
                 }
-                empWage = empHrs * EMP_RATE_PER_HOUR;
-                totalEmpWage += empWage;
-                Console.WriteLine("Day="+(day+1)+"  "+"Employee Wage:" + empWage);
+
+                totalEmpHrs += empHrs;
+                Console.WriteLine("Day#:"+totalWokingsDays+"Emp Hrs :"+empHrs);
+
+                
             }
-            Console.WriteLine("Total Employee Wage="+totalEmpWage);
+            int totalEmpWages = totalEmpHrs * EMP_RATE_PER_HOUR;
+            Console.WriteLine("Total Employee Wage="+totalEmpWages);
             
+        }
+
+        public static void Main(string[] args)
+        {
+            computeEmpWage();
         }
     }
 }
